@@ -6,6 +6,7 @@ copyright: Brought to you by <a href="https://github.com/gevico/">Gevico Tech Op
 
 theme:
     name: material
+    logo: image/Qemu-logo.png
     palette:
         scheme: auto
 
