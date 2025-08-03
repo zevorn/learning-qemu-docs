@@ -1,0 +1,18 @@
+site_name: Learing QEMU Docs
+site_author: GTOC
+
+theme:
+    name: material
+    palette:
+        scheme: auto
+
+extra_css:
+    - theme/css/import.css
+
+extra_javascript:
+    - theme/js/zoom.js
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
