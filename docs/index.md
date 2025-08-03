@@ -1,24 +1,9 @@
-# 欢迎来到 QEMU 训练营
+# 欢迎来到 2025 QEMU 训练营
 
-该文档还在建设阶段 [learning-qemu-docs](https://github.com/gevico/learning-qemu-docs).
+!!! tip "训练营介绍"
 
-## Commands
-!!! note
+    2025 QEMU 训练营是由格维开源社区（GTOC）与 OpenCamp 训练营联合主办的公益性基础技术训练营。本训练营致力于帮助开发者了解虚拟化核心技术，系统性地掌握 QEMU 的硬件建模方法与虚拟化工具的实际应用。
 
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et euismod
-    nulla. Curabitur feugiat, tortor non consequat finibus, justo purus auctor
-    massa, nec semper lorem quam in massa.
+    通过由浅入深的课程设计与动手实践，学员将学习 QEMU 的基本架构、设备模拟原理、外设建模技术以及系统仿真环境的搭建与调试。我们不仅注重技术能力的培养，更希望激发学员对底层基础软件的兴趣，深化对计算机体系结构、操作系统与硬件协同工作机制的理解。
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
-
-## Project layout
-```
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
-```
-
+    无论你是计算机相关专业的学生，还是希望拓展系统级开发能力的工程师，2025 QEMU 训练营都将为你打开通往系统虚拟化与开源世界的大门。
