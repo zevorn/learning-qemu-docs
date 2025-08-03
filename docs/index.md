@@ -1,6 +1,6 @@
 # 欢迎来到 QEMU 训练营
 
-该文档还在建设阶段 [learning-qemu-docs](https://github.com/gevico/learning-qemu-docsttps://www.mkdocs.org).
+该文档还在建设阶段 [learning-qemu-docs](https://github.com/gevico/learning-qemu-docs).
 
 ## Commands
 !!! note

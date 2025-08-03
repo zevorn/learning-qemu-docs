@@ -1,5 +1,8 @@
 site_name: Learing QEMU Docs
 site_author: GTOC
+repo_name: gevico/learning-qemu-docs
+repo_url: https://github.com/gevico/learning-qemu-docs
+copyright: Brought to you by <a href="https://github.com/gevico/">Gevico Tech Open Community</a>. Available freely under the Apache-2.0 license.
 
 theme:
     name: material
