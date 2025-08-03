@@ -23,7 +23,34 @@ markdown_extensions:
 nav:
   - 训练营介绍: index.md
   - 1. 导学阶段: ch0/index.md
-  - 2. 基础阶段: ch1/index.md
-  - 3. 专业阶段: ch2/index.md
-  - 4. 项目阶段: ch3/index.md 
-
+  - 2. 基础阶段:
+    - a. 本章导览: ch1/index.md
+    - b. 虚拟机发展历史: ch1/sec1/vm-history.md
+    - c. Hypervisor 技术介绍: ch1/sec2/hypervisor.md
+    - d. QEMU 基本知识介绍:
+      - QOM: ch1/sec3/qemu-qom.md
+      - MemoryRegion: ch1/sec3/qemu-memory-region.md
+  - 3. 专业阶段:
+    - a. 本章导览: ch2/index.md
+    - b. QEMU 初始化: ch2/sec1/qemu-init.md
+    - c. QEMU 加速器: ch2/sec2/qemu-accel.md
+    - d. QEMU Arch 模拟:
+        - RISC-V 模拟: ch2/sec3/qemu-tcg-riscv.md
+    - e. QEMU 硬件建模:
+        - Machine 建模: ch2/sec4/machine-model.md
+        - CPU 建模: ch2/sec4/cpu-model.md
+        - 外设建模: ch2/sec4/peripheral-model.md
+        - 中断建模: ch2/sec4/intr-model.md
+        - Rust 外设建模: ch2/sec4/rust-model.md
+    - f. QEMU 调试:
+      - 远程调试: ch2/sec5/gdbstub.md
+      - 日志调试: ch2/sec5/qemu-log.md
+      - 追踪事件: ch2/sec5/trace-event.md
+    - g. QEMU 测试:
+        - Qtest: ch2/sec6/qtest.md
+        - TCG 测试: ch2/sec6/test-tcg.md
+        - 浮点测试: ch2/sec6/test-softfloat.md
+  - 4. 项目阶段:
+    - a. 本章导览: ch3/index.md
+    - b. QEMU 建模 K230: ch3/sec1/k230-model.md
+    - c. QEMU 测评 OS: ch3/sec2/os-test.md
