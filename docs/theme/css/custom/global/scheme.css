@@ -1,4 +1,4 @@
-/* 自动模式-白 */
+/* 自动模式 - 白 */
 @media (prefers-color-scheme: light) {
     [data-md-color-scheme="auto"] {
         /* primary color */
@@ -25,14 +25,14 @@
     }
 }
 
-/* 自动模式-黑 */
+/* 自动模式 - 黑 */
 @media (prefers-color-scheme: dark) {
     [data-md-color-scheme="auto"] {
         --md-default-bg-color: #161616;
         --md-default-bg-color--light: #161616;
         --md-default-bg-color--lighter: #161616;
         --md-default-bg-color--lightest: #161616;
-        /* 默认foreground color */
+        /* 默认 foreground color */
         --md-default-fg-color: rgba(255, 255, 255, 0.9);
         --md-default-fg-color--light: rgb(255 255 255 / 56%);
         --md-default-fg-color--lighter: rgba(255, 255, 255, 0.8);
@@ -126,7 +126,7 @@
     --md-default-bg-color--light: #161616;
     --md-default-bg-color--lighter: #161616;
     --md-default-bg-color--lightest: #161616;
-    /* 默认foreground color */
+    /* 默认 foreground color */
     --md-default-fg-color: rgba(255, 255, 255, 0.9);
     --md-default-fg-color--light: rgb(255 255 255 / 56%);
     --md-default-fg-color--lighter: rgba(255, 255, 255, 0.8);

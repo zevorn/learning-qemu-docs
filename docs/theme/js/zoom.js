@@ -21,7 +21,7 @@ document.querySelectorAll('.md-typeset img').forEach(item => {
         closeButton.classList.add('close-button');
         document.body.appendChild(closeButton);
 
-        const imgSrc = this.src; // 获取点击图片的src
+        const imgSrc = this.src; // 获取点击图片的 src
         const zoomedImage = document.createElement('img');
         zoomedImage.src = imgSrc;
 
@@ -49,7 +49,7 @@ document.querySelectorAll('.md-typeset img').forEach(item => {
         zoomedImage.addEventListener('wheel', function (event) {
             event.preventDefault();
             scale += event.deltaY * -0.01;
-            scale = Math.min(Math.max(.125, scale), 4); // 限制缩放比例在0.125到4之间
+            scale = Math.min(Math.max(.125, scale), 4); // 限制缩放比例在 0.125 到 4 之间
             zoomedImage.style.transform = `scale(${scale}) translate(${posX}px, ${posY}px)`;
         });
 
@@ -79,7 +79,7 @@ document.querySelectorAll('.md-typeset img').forEach(item => {
                     event.touches[0].pageY - event.touches[1].pageY
                 );
                 scale = initialScale * (currentDistance / initialDistance);
-                scale = Math.min(Math.max(.125, scale), 4); // 限制缩放比例在0.125到4之间
+                scale = Math.min(Math.max(.125, scale), 4); // 限制缩放比例在 0.125 到 4 之间
                 zoomedImage.style.transform = `scale(${scale}) translate(${posX}px, ${posY}px)`;
             } else if (event.touches.length === 1 && isDragging) {
                 event.preventDefault();

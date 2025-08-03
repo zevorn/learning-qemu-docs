@@ -61,7 +61,7 @@
 }
 
 
-/* 不可展开或展开后的Admonition上栏 */
+/* 不可展开或展开后的 Admonition 上栏 */
 [dir=ltr] .md-typeset .admonition-title,
 [dir=ltr] .md-typeset summary,
 [dir=rtl] .md-typeset .admonition-title,
@@ -69,7 +69,7 @@
   border-radius: 1rem 1rem 0 0;
 }
 
-/* 折叠后的Admonition上栏  */
+/* 折叠后的 Admonition 上栏  */
 .md-typeset details:not([open])>summary {
   border-radius: 1rem;
 }

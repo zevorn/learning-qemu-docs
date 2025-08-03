@@ -45,14 +45,14 @@
 }
 
 
-/* 移动端nav标题背景 */
+/* 移动端 nav 标题背景 */
 @media screen and (max-width: 76.2344em) {
     .md-nav--primary .md-nav__title {
         background-color: var(--md-primary-fg-color);
     }
 }
 
-/* 移动端icon背景 */
+/* 移动端 icon 背景 */
 @media screen and (max-width: 76.2344em) {
     [dir=ltr] .md-nav--primary .md-nav__link .md-nav__icon {
         margin-right: -.2rem;
