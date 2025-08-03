@@ -19,3 +19,11 @@ markdown_extensions:
   - admonition
   - pymdownx.details
   - pymdownx.superfences
+
+nav:
+  - 训练营介绍: index.md
+  - 1. 导学阶段: ch0/index.md
+  - 2. 基础阶段: ch1/index.md
+  - 3. 专业阶段: ch2/index.md
+  - 4. 项目阶段: ch3/index.md 
+
