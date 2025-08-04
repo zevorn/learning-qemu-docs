@@ -51,6 +51,7 @@ nav:
         - Qtest: ch2/sec6/qtest.md
         - TCG 测试: ch2/sec6/test-tcg.md
         - 浮点测试: ch2/sec6/test-softfloat.md
+    - h. QEMU 虚拟化实践: ch2/sec7/qemu-virtual.md
   - 4. 项目阶段:
     - a. 本章导览: ch3/index.md
     - b. QEMU 建模 K230: ch3/sec1/k230-model.md
