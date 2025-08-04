@@ -43,7 +43,7 @@ QOM-|--类型的初始化  ---> type_initialize()
 
 ## 类型的注册
 
-在面向对象的思想中，说到对象时都会提到它所属的类， QEMU 也需要实现一个类型系统。下面举例：
+在面向对象的思想中，说到对象时都会提到它所属的类，QEMU 也需要实现一个类型系统。下面举例：
 
 ```c
 // hw/miscs/edu.c
@@ -107,7 +107,7 @@ void register_module_init(void (*fn)(void), module_init_type type)
 }
 ```
 
-register_module_init() 以类型的初始化函数,以及所属类型（对 QOM 类型来说是 MODULE_INIT_QOM）构建出一个 ModuleEntry ，然后插入到对应 module 所属的链表中，所有 module 的链表存放在一个 init_type_list 数组中。
+register_module_init() 以类型的初始化函数，以及所属类型（对 QOM 类型来说是 MODULE_INIT_QOM）构建出一个 ModuleEntry，然后插入到对应 module 所属的链表中，所有 module 的链表存放在一个 init_type_list 数组中。
 
 ```bash
                pci_edu_register_types                    
@@ -200,7 +200,7 @@ struct TypeImpl
 但如果使用 C 语言来实现面向对象的这些特性，就需要做特殊的处理，对类进行单独的初始化。
 
 类的初始化使用过 type_initialize() 完成的，这个函数并不长，函数的输入时表示类型信息的
- TypeImpl 类型 ti 。具体函数如下：
+ TypeImpl 类型 ti。具体函数如下：
 
 ```c {*}{maxHeight:'280px'}
 static void type_initialize(TypeImpl *ti)
@@ -278,7 +278,7 @@ static void type_initialize(TypeImpl *ti)
 
     ti->class->type = ti;
 
-    // 3. 依次调用所有父类的初始化函数 （与 C++ 类似）
+    // 3. 依次调用所有父类的初始化函数（与 C++ 类似）
     while (parent) {
         if (parent->class_base_init) {
             parent->class_base_init(ti->class, ti->class_data);
@@ -335,7 +335,7 @@ static const TypeInfo object_info = {
 TYPE_PCI_DEVICE -> TYPE_DEVICE -> TYPE_OBJECT
 ```
 
-下面再从数据结构方面谈一谈类型的层次结构:
+下面再从数据结构方面谈一谈类型的层次结构：
 
 在类型初始化函数 type_initialize 中会调用 ti->class=g_malloc0(ti->class_size) 语句分配类型的 class 结构，这个结构实际上代表了类型的信息。类似于 C++ 定义的一个类。
 
@@ -346,7 +346,7 @@ edu 设备类型本身没有定义，所以它的 class_size 为 TYPE_DEVICE 中
 ```c
 // include/hw/pci/pci_device.h (qemu v9.2.0)
 struct PCIDeviceClass {
-    // 第一个域： 属于“设备类型”的类型所具备的一些属性。
+    // 第一个域：属于“设备类型”的类型所具备的一些属性。
     DeviceClass parent_class; // 它的父类是 ObjectClass（所有类型的基础）
 
     void (*realize)(PCIDevice *dev, Error **errp);
@@ -514,7 +514,7 @@ bool qdev_realize(DeviceState *dev, BusState *bus, Error **errp)
 
 ## 对象的属性
 
-QOM 实现了类似 C++的基于类的多态，一个对象按照继承体系，可以是 Object、DeviceState、PCIDevice 等。
+QOM 实现了类似 C++ 的基于类的多态，一个对象按照继承体系，可以是 Object、DeviceState、PCIDevice 等。
 在 QOM 中为了便于管理对象，还给每种类型已经对象增加了属性。其中：
 
 1. 类属性存在于 ObjectClass 的 properties 域中，在 type_initialize 中构造；
@@ -676,7 +676,7 @@ object_add_link_prop(Object *obj, const char *name,
 }
 ```
 
-最直观的实现，就是 gpio_irq ：
+最直观的实现，就是 gpio_irq：
 
 ```c
 void qdev_init_gpio_out_named(DeviceState *dev, qemu_irq *pins,
