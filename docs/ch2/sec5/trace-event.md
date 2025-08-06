@@ -2,7 +2,7 @@
 
 QEMU 有一个很好用的调试工具 tracing，可以用来跟踪 QEMU 内部函数的执行情况，以及性能调优。
 
-比如追踪客户机程序的访存情况，可以将 QEMU 的 memory_region 的读写记录打印出来，只要注册了相应的 trace-event 。
+比如追踪客户机程序的访存情况，可以将 QEMU 的 memory_region 的读写记录打印出来，只要注册了相应的 trace-event。
 
 我们先讨论一个最简单的方法，把 tracing 用起来。
 
@@ -21,7 +21,7 @@ $ qemu-system-riscv64 -M virt --trace "memory_region_ops_*" # *号代表前�
 719585@1608130130.441190:memory_region_ops_write cpu 0 mr 0x562fdfbd2f00 addr 0x3d4 value 0x70e size 2
 ```
 
-我们可以在 QEMU 源码的 system/trace-events 文件中找到 mr 相关的 trace-event ：
+我们可以在 QEMU 源码的 system/trace-events 文件中找到 mr 相关的 trace-event：
 
 ```bash
 # memory.c
@@ -53,17 +53,17 @@ $ qemu-system-riscv64 -M virt -monitor stdio -S -display none
 memory_region_ops_write cpu 0 mr 0x55a289a24d80 addr 0x10000000 value 0x78 size 1 name 'serial'
 ```
 
-在 monitor 中使用 tracing 还有一个好处，你可以通过 tab 按键来补全命令，不必辛苦手动从源码中查阅每个组件支持的 trace-event 。
+在 monitor 中使用 tracing 还有一个好处，你可以通过 tab 按键来补全命令，不必辛苦手动从源码中查阅每个组件支持的 trace-event。
 
 也可以使用  info trace-events 命令查询支持的 trace 事件。
 
 也可以使用 trace-file 命令将追踪日志输出到文件。
 
-tracing 支持多种 backend，默认使用 QEMU 的 log 作为后端，简单调试的场景，不必手动构建 QEMU ，可以直接使用 Linux 或者 windows 软件仓提供的 QEMU。
+tracing 支持多种 backend，默认使用 QEMU 的 log 作为后端，简单调试的场景，不必手动构建 QEMU，可以直接使用 Linux 或者 windows 软件仓提供的 QEMU。
 
 ## trace-event 介绍
 
-在 QEMU 源码的每一级目录，都可以添加 trace-events 文件，只需要在顶层 meson.build 目录里声明它的相对路径，就可以往里面添加自定义的 trace-event ：
+在 QEMU 源码的每一级目录，都可以添加 trace-events 文件，只需要在顶层 meson.build 目录里声明它的相对路径，就可以往里面添加自定义的 trace-event：
 
 ```c
 if have_system
@@ -88,7 +88,7 @@ endif
 
 此处 <subdir> 表示将子目录路径中的 '/' 替换为 '_' 。
 
-例如，accel/kvm 变为 accel_kvm ，最终生成的 trace-<subdir>.c 文件名即为 trace-accel_kvm.c 。
+例如，accel/kvm 变为 accel_kvm，最终生成的 trace-<subdir>.c 文件名即为 trace-accel_kvm.c。
 
 各个 trace-events 文件会被合并成一个 trace-events-all 文件，同样生成在 <builddir>/trace/ 目录中。
 
@@ -111,7 +111,7 @@ echo '#include "trace/trace-io.h"' > io/trace.h
 ```
 
 !!! tip
-    值得注意的是：虽然可以从源文件所在子目录之外引入 trace.h ，但通常不建议这样做。
+    值得注意的是：虽然可以从源文件所在子目录之外引入 trace.h，但通常不建议这样做。
 
     强烈建议所有 trace-event，都在使用它们的子目录中直接声明。
 
@@ -132,7 +132,7 @@ qemu_vfree(void *ptr) "ptr %p"
 
 每个事件声明将以事件名称开头，然后是参数，最后是一个用于美观打印的格式字符串。
 
-格式字符串应反映跟踪事件中定义的类型。 tracing 只支持基础标量类型（char、int、long），不支持浮点类型（float、double）。
+格式字符串应反映跟踪事件中定义的类型。tracing 只支持基础标量类型（char、int、long），不支持浮点类型（float、double）。
 
 特别注意对 int64_t 和 uint64_t 类型分别使用 PRId64 和 PRIu64，这确保了在 32 位和 64 位平台之间的可移植性。
 
@@ -201,11 +201,11 @@ void *qemu_vmalloc(size_t size)
 
 ## trace backend 介绍
 
-QEMU 的 tracing 采用前后端分离的设计，支持多种后端，除了上文提到的 log ，还支持更轻量的 simple，以及 ftrace 和 dtrace。
+QEMU 的 tracing 采用前后端分离的设计，支持多种后端，除了上文提到的 log，还支持更轻量的 simple，以及 ftrace 和 dtrace。
 
 我们还可以通过 tracetool 脚本添加更多 backend 支持。
 
-启用不同的 backend ，可以使用以下 QEMU 编译命令：
+启用不同的 backend，可以使用以下 QEMU 编译命令：
 
 ```bash
 ./configure --enable-trace-backends=simple,dtrace
