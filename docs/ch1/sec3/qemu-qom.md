@@ -1,6 +1,6 @@
 
 !!! tip "点击听全文"
-    ![type:audio](../../audio/01.wav)
+    ![type:audio](../../audio/qom.wav)
 
 
 ## 基本介绍
