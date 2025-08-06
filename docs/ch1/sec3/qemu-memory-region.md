@@ -5,7 +5,7 @@
 比如执行一条访存指令：
 
 !!! note
-  1. CPU 在计算（通过算术逻辑单元ALU）出目标地址以后，将其发送到地址总线上，同时 CPU 还会给出读写的控制信号；
+  1. CPU 在计算（通过算术逻辑单元 ALU）出目标地址以后，将其发送到地址总线上，同时 CPU 还会给出读写的控制信号；
 
   2. 地址对应的设备，可能是一块普通内存，也可能是一个 I/O 设备（这里特指外设），会对地址总线的信号进行响应；
 
@@ -25,7 +25,7 @@
 
   3. 实现地址的重映射，比如 MCS-51 的 RAM、XRAM 都是从 0 地址开始的；
 
-为此，QEMU 提供了两个概念，address-space 和 memory-region（下文简称为 mr ），前者用于描述整个地址空间的映射关系（不同部件看到的地址空间可能不同），后者用于描述某个具体地址范围内的映射规则。
+为此，QEMU 提供了两个概念，address-space 和 memory-region（下文简称为 mr），前者用于描述整个地址空间的映射关系（不同部件看到的地址空间可能不同），后者用于描述某个具体地址范围内的映射规则。
 
 我们通过 QEMU 的如下命令进入控制台，打印以下 RISC-V 的 virt machine 作为参考：
 
@@ -106,7 +106,7 @@ memory-region: system
 
 结合这个输出，我们来讲讲 QEMU 是如何实现内存虚拟化（准确说是模拟）的。
 
-一个 Guest （表示被模拟的对象，这里指 virt machine ）可以有多个 address-space ，每个 address-space 描述的地址映射关系不一定相同，典型的是 I/O 和 memory 。
+一个 Guest（表示被模拟的对象，这里指 virt machine）可以有多个 address-space，每个 address-space 描述的地址映射关系不一定相同，典型的是 I/O 和 memory。
 
 每个 address-space 对应一个 mr 树，比如 address-space: memory 对应的 mr 的根节点是 system，子节点按照地址大小顺序排列，从 riscv.nuclei.irom 开始，到 riscv.nuclei.eclic 结束。
 由于 mr 描述的是某个具体地址范围内的映射规则，因此可以很方便地实现设备的离散映射。
@@ -399,7 +399,7 @@ mr 提供了一些类型，用于描述存储设备，常见的有 RAM、ROM、I
       ...
 ```
 
-对于 mr container 类型，它包含了其他的 mr ，记录每个 mr 的 offset。
+对于 mr container 类型，它包含了其他的 mr，记录每个 mr 的 offset。
 
 在实际应用场景，我们可以利用 mr container 创建不同的地址层级关系，可以在地址空间层面，清晰的描述不同子系统的关系，对于实现模块化有很好的帮助。
 
