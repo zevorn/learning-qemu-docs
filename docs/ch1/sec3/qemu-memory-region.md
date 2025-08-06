@@ -28,6 +28,8 @@
 
 为此，QEMU 提供了两个概念，address-space 和 memory-region（下文简称为 mr），前者用于描述整个地址空间的映射关系（不同部件看到的地址空间可能不同），后者用于描述某个具体地址范围内的映射规则。
 
+## 地址空间布局
+
 我们通过 QEMU 的如下命令进入控制台，打印以下 RISC-V 的 virt machine 作为参考：
 
 ```bash
@@ -135,6 +137,8 @@ A:[DDDDDDDDDDDDDDDDD|CCCCCCCCCCCCCCCCC|BBBBBBBBBBBBBBBBB|AAAAAAAAAAAAAAAAA]
 ```
 
 为了实现以上机制，QEMU 使用 alias 来描述 mr 中重叠的部分，使用 alias 可以将一个 mr 的一部分放到另外一个 mr 上，以此来简化内存模拟的复杂度。
+
+## 初始化流程
 
 我们从 QEMU 初始化过程，来理解 mr 和 address-space 的关系：
 
@@ -296,6 +300,8 @@ in memory_region_initfn (obj=<optimized out>) at ../system/memory.c:1281QTAILQ_I
 
 可以看到，system_memory->subregions 同样是在 memory_region_initfn() 内部被完成初始化的。
 
+## 节点间关系
+
 如果进一步监视 system_memory->subregions，你将得到这个其他 mr 节点是被如何添加进来的：
 
 ```bash
@@ -405,6 +411,7 @@ mr 提供了一些类型，用于描述存储设备，常见的有 RAM、ROM、I
 对于 mr container 类型，它包含了其他的 mr，记录每个 mr 的 offset。
 
 在实际应用场景，我们可以利用 mr container 创建不同的地址层级关系，可以在地址空间层面，清晰的描述不同子系统的关系，对于实现模块化有很好的帮助。
+
 
 
 
