@@ -57,9 +57,11 @@ memory_region_ops_write cpu 0 mr 0x55a289a24d80 addr 0x10000000 value 0x7
 
 在 monitor 中使用 tracing 还有一个好处，你可以通过 tab 按键来补全命令，不必辛苦手动从源码中查阅每个组件支持的 trace-event。
 
-也可以使用  info trace-events 命令查询支持的 trace 事件。
+!!! note
 
-也可以使用 trace-file 命令将追踪日志输出到文件。
+    也可以使用`info trace-events`命令查询支持的 trace 事件。
+
+    或者使用`trace-file`命令将追踪日志输出到文件。
 
 tracing 支持多种 backend，默认使用 QEMU 的 log 作为后端，简单调试的场景，不必手动构建 QEMU，可以直接使用 Linux 或者 windows 软件仓提供的 QEMU。
 
@@ -81,12 +83,14 @@ endif
 
 在 QEMU 构建过程中，每个 trace-events 文件将由 tracetool 脚本处理，自动在 <builddir>/trace/ 路径下生成 trace 相关的代码，主要包含以下文件：
 
+```
 - trace-<子目录名>.c
 - trace-<subdir>.h
 - trace-dtrace-<subdir>.h
 - trace-dtrace-<subdir>.dtrace
 - trace-dtrace-<subdir>.o
 - trace-ust-<subdir>.h
+```
 
 此处 <subdir> 表示将子目录路径中的 '/' 替换为 '_' 。
 
@@ -228,4 +232,5 @@ QEMU 的 tracing 采用前后端分离的设计，支持多种后端，除了上
 ```
 
 必须确保使用的 trace-events-all 文件，与构建 QEMU 时的生成的相同，否则跟踪事件声明可能已发生变化，导致输出不一致。
+
 
