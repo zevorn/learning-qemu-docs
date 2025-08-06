@@ -29,7 +29,9 @@ memory_region_ops_read(int cpu_index, void *mr, uint64_t addr, uint64_t v
 memory_region_ops_write(int cpu_index, void *mr, uint64_t addr, uint64_t value, unsigned size, const char *name) "cpu %d mr %p addr 0x%"PRIx64" value 0x%"PRIx64" size %u name '%s'"
 ```
 
-如果要启用多个 trace-event ，只需要在启动选项里追加 --trace <name>，为了避免参数冗长，可以将需要追踪的 trace-event 记录在一个配置文件，然后加载它：
+如果要启用多个 trace-event ，只需要在启动选项里追加`--trace <name>`。
+
+为了避免参数冗长，可以将需要追踪的 trace-event 记录在一个配置文件，然后加载它：
 
 ```bash
 echo "memory_region_ops_*" >/tmp/events
@@ -226,3 +228,4 @@ QEMU 的 tracing 采用前后端分离的设计，支持多种后端，除了上
 ```
 
 必须确保使用的 trace-events-all 文件，与构建 QEMU 时的生成的相同，否则跟踪事件声明可能已发生变化，导致输出不一致。
+
