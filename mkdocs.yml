@@ -21,6 +21,9 @@ markdown_extensions:
   - pymdownx.details
   - pymdownx.superfences
 
+plugins:
+    - mkdocs-audio
+
 nav:
   - 训练营介绍: index.md
   - 1. 导学阶段: ch0/index.md
