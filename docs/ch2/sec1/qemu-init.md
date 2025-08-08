@@ -8,7 +8,7 @@
 qemu-system-riscv64 -M virt -s -S -nographic
 ```
 
-这个命令让 QEMU 创建了一个 virt Machine，以 nographic 模式运行，串口输出到终端，默认 bios 使用 OpenSBI ，并且开启了 gdbstub 远程调试功能，允许 riscv64-gdb 来调试客户机程序，默认端口号是 1234 ，同时停在第一条指令，等待 gdb 的连接。
+这个命令让 QEMU 创建了一个 virt Machine，以 nographic 模式运行，串口输出到终端，默认 bios 使用 OpenSBI，并且开启了 gdbstub 远程调试功能，允许 riscv64-gdb 来调试客户机程序，默认端口号是 1234，同时停在第一条指令，等待 gdb 的连接。
 
 我们先观察 virt Machine 是如何创建的，然后再探讨一下 QEMU 是如何加载 OpenSBI 的二进制程序到 virt Machine 的内存里面的，最后再看 QEMU 是如何初始化 vCPU 指向第一条 Guest 指令的。
 
@@ -55,7 +55,7 @@ gdb qemu-system-riscv64 -ex "set args -M virt -nographic"
 ...
 ```
 
-首先我们跟踪到的，是virt_machine_class_init 函数，看一下调用栈：
+首先我们跟踪到的，是 virt_machine_class_init 函数，看一下调用栈：
 
 ```bash
 (gdb) bt
@@ -737,7 +737,7 @@ static void riscv_cpu_reset_hold(Object *obj, ResetType type)
 }
 
 ```
-可以看到 env->pc 被赋值为 env->resetvec ，而 resetvec 的默认值是:
+可以看到 env->pc 被赋值为 env->resetvec，而 resetvec 的默认值是：
 
 ```
 //cpu_bits.h
