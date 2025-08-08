@@ -37,7 +37,9 @@ nav:
   - 3. 专业阶段:
     - a. 本章导览: ch2/index.md
     - b. QEMU 初始化: ch2/sec1/qemu-init.md
-    - c. QEMU 加速器: ch2/sec2/qemu-accel.md
+    - c. QEMU 加速器:
+      - TCG: ch2/sec2/qemu-accel-tcg.md
+      - KVM: ch2/sec2/qemu-accel-kvm.md
     - d. QEMU Arch 模拟:
         - RISC-V 模拟: ch2/sec3/qemu-tcg-riscv.md
     - e. QEMU 硬件建模:
