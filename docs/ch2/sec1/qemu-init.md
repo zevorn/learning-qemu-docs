@@ -10,9 +10,10 @@ qemu-system-riscv64 -M virt -s -S -nographic
 
 这个命令让 QEMU 创建了一个 virt Machine，以 nographic 模式运行，串口输出到终端，默认 bios 使用 OpenSBI，并且开启了 gdbstub 远程调试功能，允许 riscv64-gdb 来调试客户机程序，默认端口号是 1234，同时停在第一条指令，等待 gdb 的连接。
 
-我们先观察 virt Machine 是如何创建的，然后再探讨一下 QEMU 是如何加载 OpenSBI 的二进制程序到 virt Machine 的内存里面的，最后再看 QEMU 是如何初始化 vCPU 指向第一条 Guest 指令的。
+!!! note
+    我们先观察 virt Machine 是如何创建的，然后再探讨一下 QEMU 是如何加载 OpenSBI 的二进制程序到 virt Machine 的内存里面的，最后再看 QEMU 是如何初始化 vCPU 指向第一条 Guest 指令的。
 
-把以上流程梳理清楚，我们就对 QEMU 的工作原理有了更宏观的印象了，其他 Machine 的初始化和准备工作，基本类似。
+把以上流程梳理清楚，我们就对 QEMU 的工作原理有更多的了解了，其他 Machine 的初始化和准备工作，基本类似。
 
 所以本小节，讲述的是一个方法论，让你快速分析不同的 Machine，或者对于本训练营没有覆盖到知识点，你也有足够的手段去研究它。
 
