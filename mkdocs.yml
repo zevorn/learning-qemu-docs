@@ -38,8 +38,10 @@ nav:
     - a. 本章导览: ch2/index.md
     - b. QEMU 初始化: ch2/sec1/qemu-init.md
     - c. QEMU 加速器:
-      - TCG: ch2/sec2/qemu-accel-tcg.md
-      - KVM: ch2/sec2/qemu-accel-kvm.md
+      - Tiny Code Generator:
+        - TCG 翻译: ch2/sec2/qemu-accel-tcg/tcg-translation.md
+        - 模拟 Guest 指令: ch2/sec2/qemu-accel-tcg/tcg-add-guest-insn.md
+      - Hypervisor: ch2/sec2/qemu-accel-kvm.md
     - d. QEMU Arch 模拟:
         - RISC-V 模拟: ch2/sec3/qemu-tcg-riscv.md
     - e. QEMU 硬件建模:
