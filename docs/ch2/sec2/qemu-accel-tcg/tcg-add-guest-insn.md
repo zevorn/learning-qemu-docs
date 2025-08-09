@@ -33,7 +33,7 @@ unnamed_field := number ':' ( 's' ) number  eg: %rd 7:5 => insn[11:7]
 ```
 
 - identifier 可由开发者自定，如：rd、imm… 等
-- unamed_field 定义了该字段的所在比特/位域， s 字符来标明在取出该字段后，是否需要做符号扩展
+- unamed_field 定义了该字段的所在比特/位域，s 字符来标明在取出该字段后，是否需要做符号扩展
 - !function 定义在截取出该字段的值后，所会再调用的 function
 
 
@@ -99,7 +99,7 @@ args_ref     := '&' identifier
         `.` 代表该 bit 可以用 0 或是 1 来表示。
         `-` 代表该 bit 完全被忽略。
 
-- field_elt 可以用 Field 的语法来声明,Eg：ra:5、rb:5、lit:8
+- field_elt 可以用 Field 的语法来声明，Eg：ra:5、rb:5、lit:8
 
 - field_ref 有下列两种格式 (以下范例参考上文所定义之 Field)：
     - `'%' identifier`：直接参考一个被定义过的 Field。
@@ -126,7 +126,7 @@ args_ref     := '&' identifier
 ```
 
 - insn[31:26] 可为 0 或 1
-- insn[25:21] 为 ra， insn[20:13] 为 lit
+- insn[25:21] 为 ra，insn[20:13] 为 lit
 - insn[12] 固定为 1
 - insn[11:5] 可为 0 或 1
 - insn[4:0] 为 rc
@@ -235,10 +235,10 @@ const_elt    := identifier '=' number
     - field_elt 与在 Format 中 field_elt 的定义相同。
     - field_ref 与在 Format 中 field_ref 的定义相同。
     - args_ref 与在 Format 中 args_ref 的定义相同。
-    - fmt_ref 直接参考一个被定义过的Format。
+    - fmt_ref 直接参考一个被定义过的 Format。
     - const_elt 可以直接指定某一个 argument 的值。
 
-Pattern 示例:
+Pattern 示例：
 
 ```
 addl_i   010000 ..... ..... .... 0000000 ..... @opi
