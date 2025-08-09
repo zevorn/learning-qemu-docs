@@ -39,8 +39,9 @@ nav:
     - b. QEMU 初始化: ch2/sec1/qemu-init.md
     - c. QEMU 加速器:
       - Tiny Code Generator:
-        - TCG 翻译: ch2/sec2/qemu-accel-tcg/tcg-translation.md
-        - 模拟 Guest 指令: ch2/sec2/qemu-accel-tcg/tcg-add-guest-insn.md
+        - TCG Translation: ch2/sec2/qemu-accel-tcg/tcg-translation.md
+        - Decodetree: ch2/sec2/qemu-accel-tcg/tcg-add-guest-insn.md
+        - TCG IR: ch2/sec2/qemu-accel-tcg/tcg-ir.md
       - Hypervisor: ch2/sec2/qemu-accel-kvm.md
     - d. QEMU Arch 模拟:
         - RISC-V 模拟: ch2/sec3/qemu-tcg-riscv.md
