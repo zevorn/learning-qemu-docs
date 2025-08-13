@@ -52,7 +52,8 @@ nav:
           - 外设建模: ch2/sec4/c-model/peripheral-model.md
           - 中断建模: ch2/sec4/c-model/intr-model.md
         - Rust 建模:
-          - QOM 封装: ch2/sec4/rust-model/rust-qom.md
+          - QOM 实现: ch2/sec4/rust-model/rust-qom.md
+          - QDev 实现: ch2/sec4/rust-model/rust-qdev.md
           - 外设建模: ch2/sec4/rust-model/peripheral-model.md
     - f. QEMU 调试:
       - 远程调试: ch2/sec5/gdbstub.md
