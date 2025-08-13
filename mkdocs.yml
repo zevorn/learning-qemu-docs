@@ -46,11 +46,14 @@ nav:
     - d. QEMU Arch 模拟:
         - RISC-V 模拟: ch2/sec3/qemu-tcg-riscv.md
     - e. QEMU 硬件建模:
-        - Machine 建模: ch2/sec4/machine-model.md
-        - CPU 建模: ch2/sec4/cpu-model.md
-        - 外设建模: ch2/sec4/peripheral-model.md
-        - 中断建模: ch2/sec4/intr-model.md
-        - Rust 建模: ch2/sec4/rust-model.md
+        - C 语言建模:
+          - Machine 建模: ch2/sec4/c-model/machine-model.md
+          - CPU 建模: ch2/sec4/c-model/cpu-model.md
+          - 外设建模: ch2/sec4/c-model/peripheral-model.md
+          - 中断建模: ch2/sec4/c-model/intr-model.md
+        - Rust 建模:
+          - QOM 封装: ch2/sec4/rust-model/rust-qom.md
+          - 外设建模: ch2/sec4/rust-model/peripheral-model.md
     - f. QEMU 调试:
       - 远程调试: ch2/sec5/gdbstub.md
       - 日志调试: ch2/sec5/qemu-log.md
