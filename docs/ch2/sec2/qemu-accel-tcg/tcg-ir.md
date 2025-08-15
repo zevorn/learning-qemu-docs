@@ -2,7 +2,7 @@
 
 如果想要获得更好的性能，推荐使用 IR 来实现。
 
-TCG 的前端负责将目标架构的指令转换为 TCG op ，而 TCG 的后端则负责将 TCG op 转换为目标架构的指令。
+TCG 的前端负责将目标架构的指令转换为 TCG op，而 TCG 的后端则负责将 TCG op 转换为目标架构的指令。
 
 本节我们主要讲 TCG 的前端，讨论常用的 TCG op 的用法。
 
@@ -65,7 +65,7 @@ tcg_gen_mov_tl(ret, arg1);
 tcg_gen_neg_tl(ret, arg1);
 ```
 
-操作两个寄存器:
+操作两个寄存器：
 
 ```c
 // ret = arg1 + arg2
