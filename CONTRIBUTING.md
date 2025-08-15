@@ -220,3 +220,5 @@ PR 模板示例：
 <!-- 如有其他需要说明的事项，请在此填写 -->
 -
 ```
+
+[1]: https://github.com/hust-open-atom-club/intro2oss
