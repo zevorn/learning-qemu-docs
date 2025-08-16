@@ -32,7 +32,7 @@ static void sifive_plic_set_irq(void *opaque, int irq, int level)
 {
     SiFivePLICState *s = opaque;
     if (level) {
-        s->pending[irq >> 5] |= 1 << (irq & 0x1F); // 设置pending位
+        s->pending[irq >> 5] |= 1 << (irq & 0x1F); // 设置 pending 位
     } else {
         s->pending[irq >> 5] &= ~(1 << (irq & 0x1F));
     }
@@ -62,8 +62,8 @@ static void sifive_plic_update(SiFivePLICState *s)
         }
         
         if (max_irq > 0) {
-            s->claim[i] = max_irq; // 记录到claim寄存器
-            qemu_set_irq(s->m_external_irqs[i], 1); // 触发CPU中断
+            s->claim[i] = max_irq; // 记录到 claim 寄存器
+            qemu_set_irq(s->m_external_irqs[i], 1); // 触发 CPU 中断
         } else {
             qemu_set_irq(s->m_external_irqs[i], 0);
         }
@@ -117,7 +117,7 @@ void riscv_cpu_do_interrupt(CPUState *cs)
     RISCVCPU *cpu = RISCV_CPU(cs);
     CPURISCVState *env = &cpu->env;
     
-    // 1. 保存PC到mepc
+    // 1. 保存 PC 到 mepc
     env->mepc = env->pc;
     
     // 2. 设置中断原因
@@ -148,7 +148,7 @@ ENTRY(handle_arch_irq)
     csrr a0, mcause
     csrr a1, mepc
     mv a2, sp
-    call riscv_intc_irq  // 跳转到C语言处理程序
+    call riscv_intc_irq  // 跳转到 C 语言处理程序
     RESTORE_ALL
 END(handle_arch_irq)
 
@@ -169,13 +169,13 @@ static void plic_irq_handler(struct irq_desc *desc)
 
 ## 调试与跟踪
 
-开启 PLIC 调试:
+开启 PLIC 调试：
 
 ```
 qemu-system-riscv64 -d int,guest_errors -D plic.log
 ```
 
-关键跟踪点(trace-event)
+关键跟踪点 (trace-event)
 
 ```
 qemu-system-riscv64 --trace "trace_sifive_plic_*"
