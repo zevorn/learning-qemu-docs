@@ -252,5 +252,4 @@ static void virt_machine_register_types(void) {
     type_register_static(&virt_machine_typeinfo);
 }
 type_init(virt_machine_register_types);
-
 ```
