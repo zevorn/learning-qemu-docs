@@ -24,7 +24,7 @@ int main(int argc, char **argv) {
 void qemu_init(int argc, char **argv) {
     qemu_opts_parse();          // 解析命令行参数
     machine_opts_dict = qdict_new(); // 创建机器参数字典
-    keyval_parse_into(machine_opts_dict, optarg, "type"); // 解析-M参数
+    keyval_parse_into(machine_opts_dict, optarg, "type"); // 解析-M 参数
     qemu_create_machine(machine_opts_dict); // 创建机器实例
 }
 ```
@@ -74,7 +74,7 @@ static void qemu_create_machine(QDict *qdict) {
 static void machine_initfn(Object *obj) {
     MachineState *ms = MACHINE(obj);
     ms->ram_size = mc->default_ram_size; // 默认内存大小
-    ms->smp.cpus = mc->default_cpus;    // 默认CPU数量
+    ms->smp.cpus = mc->default_cpus;    // 默认 CPU 数量
 }
 ```
 
@@ -94,9 +94,9 @@ void machine_run_board_init(MachineState *machine) {
     mc->init(machine); // 调用机器专属初始化函数
 }
 
-// hw/riscv/virt.c (RISC-V示例)
+// hw/riscv/virt.c (RISC-V 示例)
 static void virt_machine_init(MachineState *machine) {
-    // 1. 初始化CPU拓扑
+    // 1. 初始化 CPU 拓扑
     for (int i = 0; i < smp_cpus; i++) {
         object_initialize_child(OBJECT(machine), "cpu", &s->soc[i], CPU_TYPE);
     }
@@ -107,7 +107,7 @@ static void virt_machine_init(MachineState *machine) {
     // 3. 初始化外设总线
     sysbus_init_mmio(SYS_BUS_DEVICE(&s->plic), &s->plic_mmio);
     
-    // 4. 创建设备树(FDT)
+    // 4. 创建设备树 (FDT)
     create_fdt(s);
 }
 ```
@@ -127,15 +127,15 @@ void accel_init_machine(MachineState *ms) {
     ac->init_machine(ms); // 初始化加速器
 }
 
-// accel/kvm/kvm-all.c (KVM示例)
+// accel/kvm/kvm-all.c (KVM 示例)
 static void kvm_init(MachineState *ms) {
-    kvm_state->fd = open("/dev/kvm", O_RDWR); // 打开KVM设备
+    kvm_state->fd = open("/dev/kvm", O_RDWR); // 打开 KVM 设备
     kvm_state->vmfd = ioctl(kvm_state->fd, KVM_CREATE_VM); // 创建虚拟机
 }
 
 // cpu.c
 void qemu_init_vcpu(CPUState *cpu) {
-    cpus_accel->create_vcpu_thread(cpu); // 创建vCPU线程
+    cpus_accel->create_vcpu_thread(cpu); // 创建 vCPU 线程
 }
 ```
 
@@ -151,12 +151,12 @@ void qemu_init_vcpu(CPUState *cpu) {
 ```c
 // system/vl.c
 void qemu_main_loop(void) {
-    // 1. 加载BIOS或内核
+    // 1. 加载 BIOS 或内核
     if (machine->kernel_filename) {
         load_kernel(machine->kernel_filename);
     }
     
-    // 2. 启动所有vCPU
+    // 2. 启动所有 vCPU
     CPU_FOREACH(cpu) {
         qemu_cpu_kick(cpu);
     }
@@ -177,10 +177,10 @@ void qemu_main_loop(void) {
 #define TYPE_RISCV_VIRT_MACHINE "riscv-virt-machine"
 
 typedef struct RISCVVirtState {
-    MachineState parent; // 继承MachineState
+    MachineState parent; // 继承 MachineState
 
     /* 硬件组件 */
-    RISCVHartArrayState soc[RISCV_SOCKETS_MAX]; // CPU集群
+    RISCVHartArrayState soc[RISCV_SOCKETS_MAX]; // CPU 集群
     MemoryRegion ram;                          // 内存区域
     DeviceState *plic;                         // 中断控制器
     DeviceState *uart;                         // 串口设备
@@ -192,7 +192,7 @@ static void virt_machine_class_init(ObjectClass *oc, void *data) {
     
     mc->desc = "RISC-V VirtIO Board";
     mc->init = virt_machine_init;          // 绑定初始化函数
-    mc->max_cpus = 8;                      // 最大CPU数
+    mc->max_cpus = 8;                      // 最大 CPU 数
     mc->default_ram_size = 256 * MiB;       // 默认内存大小
     mc->default_cpu_type = RISCV_CPU_TYPE_NAME("rv64");
 }
@@ -202,7 +202,7 @@ static void virt_machine_init(MachineState *machine) {
     RISCVVirtState *s = RISCV_VIRT_MACHINE(machine);
     const MemMapEntry *memmap = virt_memmap;
     
-    /* === 1. 初始化CPU拓扑 === */
+    /* === 1. 初始化 CPU 拓扑 === */
     for (int i = 0; i < machine->smp.cpus; i++) {
         char *name = g_strdup_printf("cpu%d", i);
         object_initialize_child(OBJECT(machine), name, &s->soc[i],
