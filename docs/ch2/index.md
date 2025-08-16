@@ -6,9 +6,9 @@
 
 - QEMU 加速器介绍：以软件二进制翻译加速器 TCG 为主，以硬件虚拟化 KVM 技术为辅
 
-- QEMU 体系结构模拟：以 RISC-V 为例，讲解 TCG 如何模拟指令
+- QEMU 体系结构模拟：以 RISC-V 为例，讲解 TCG 如何模拟指令，如何添加新的 CPU 和指令集扩展
 
-- QEMU 硬件建模：Machine 建模、CPU 建模、外设建模、中断建模、Rust 建模等等
+- QEMU 硬件建模：Machine 建模、外设建模、中断建模、Rust 建模等等
 
 - QEMU 调试：介绍常用调试手段，比如 gdbstub，log，trace-event
 
