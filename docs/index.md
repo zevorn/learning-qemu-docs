@@ -8,4 +8,4 @@
 
     无论你是计算机相关专业的学生，还是希望拓展系统级开发能力的工程师，2025 QEMU 训练营都将为你打开通往系统虚拟化与开源世界的大门。
 
-[线上预报名通道）](https://opencamp.cn/qemu/camp/2025/register)
+[线上预报名通道）](https://opencamp.cn/qemu/camp/2025/register?code=cMJyhG4owbdmU)
