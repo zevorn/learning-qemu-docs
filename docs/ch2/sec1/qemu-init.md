@@ -135,42 +135,14 @@ static void virt_machine_class_init(ObjectClass *oc, const void *data)
     machine_class_allow_dynamic_sysbus_dev(mc, TYPE_TPM_TIS_SYSBUS);
 #endif
 
+    /* class property intialization */
     object_class_property_add_bool(oc, "aclint", virt_get_aclint,
                                    virt_set_aclint);
     object_class_property_set_description(oc, "aclint",
                                           "(TCG only) Set on/off to "
                                           "enable/disable emulating "
                                           "ACLINT devices");
-
-    object_class_property_add_str(oc, "aia", virt_get_aia,
-                                  virt_set_aia);
-    object_class_property_set_description(oc, "aia",
-                                          "Set type of AIA interrupt "
-                                          "controller. Valid values are "
-                                          "none, aplic, and aplic-imsic.");
-
-    object_class_property_add_str(oc, "aia-guests",
-                                  virt_get_aia_guests,
-                                  virt_set_aia_guests);
-    {
-        g_autofree char *str =
-            g_strdup_printf("Set number of guest MMIO pages for AIA IMSIC. "
-                            "Valid value should be between 0 and %d.",
-                            VIRT_IRQCHIP_MAX_GUESTS);
-        object_class_property_set_description(oc, "aia-guests", str);
-    }
-
-    object_class_property_add(oc, "acpi", "OnOffAuto",
-                              virt_get_acpi, virt_set_acpi,
-                              NULL, NULL);
-    object_class_property_set_description(oc, "acpi",
-                                          "Enable ACPI");
-
-    object_class_property_add(oc, "iommu-sys", "OnOffAuto",
-                              virt_get_iommu_sys, virt_set_iommu_sys,
-                              NULL, NULL);
-    object_class_property_set_description(oc, "iommu-sys",
-                                          "Enable IOMMU platform device");
+    ...
 }
 
 static void virt_machine_instance_init(Object *obj)
@@ -235,26 +207,19 @@ static void virt_machine_init(MachineState *machine)
             exit(1);
         }
 
+        /* cpu object property initialization */
         object_initialize_child(OBJECT(machine), soc_name, &s->soc[i],
                                 TYPE_RISCV_HART_ARRAY);
         object_property_set_str(OBJECT(&s->soc[i]), "cpu-type",
                                 machine->cpu_type, &error_abort);
-        object_property_set_int(OBJECT(&s->soc[i]), "hartid-base",
-                                base_hartid, &error_abort);
-        object_property_set_int(OBJECT(&s->soc[i]), "num-harts",
-                                hart_count, &error_abort);
-        sysbus_realize(SYS_BUS_DEVICE(&s->soc[i]), &error_fatal);
+        ...
 
         if (virt_aclint_allowed() && s->have_aclint) {
             if (s->aia_type == VIRT_AIA_TYPE_APLIC_IMSIC) {
                 /* Per-socket ACLINT MTIMER */
                 riscv_aclint_mtimer_create(s->memmap[VIRT_CLINT].base +
                             i * RISCV_ACLINT_DEFAULT_MTIMER_SIZE,
-                        RISCV_ACLINT_DEFAULT_MTIMER_SIZE,
-                        base_hartid, hart_count,
-                        RISCV_ACLINT_DEFAULT_MTIMECMP,
-                        RISCV_ACLINT_DEFAULT_MTIME,
-                        RISCV_ACLINT_DEFAULT_TIMEBASE_FREQ, true);
+                            ...);
             } else {
                 /* Per-socket ACLINT MSWI, MTIMER, and SSWI */
                 riscv_aclint_swi_create(s->memmap[VIRT_CLINT].base +
@@ -263,25 +228,13 @@ static void virt_machine_init(MachineState *machine)
                 riscv_aclint_mtimer_create(s->memmap[VIRT_CLINT].base +
                             i * s->memmap[VIRT_CLINT].size +
                             RISCV_ACLINT_SWI_SIZE,
-                        RISCV_ACLINT_DEFAULT_MTIMER_SIZE,
-                        base_hartid, hart_count,
-                        RISCV_ACLINT_DEFAULT_MTIMECMP,
-                        RISCV_ACLINT_DEFAULT_MTIME,
-                        RISCV_ACLINT_DEFAULT_TIMEBASE_FREQ, true);
+                            ...);
                 riscv_aclint_swi_create(s->memmap[VIRT_ACLINT_SSWI].base +
                             i * s->memmap[VIRT_ACLINT_SSWI].size,
                         base_hartid, hart_count, true);
             }
         } else if (tcg_enabled()) {
             /* Per-socket SiFive CLINT */
-            riscv_aclint_swi_create(
-                    s->memmap[VIRT_CLINT].base + i * s->memmap[VIRT_CLINT].size,
-                    base_hartid, hart_count, false);
-            riscv_aclint_mtimer_create(s->memmap[VIRT_CLINT].base +
-                    i * s->memmap[VIRT_CLINT].size + RISCV_ACLINT_SWI_SIZE,
-                    RISCV_ACLINT_DEFAULT_MTIMER_SIZE, base_hartid, hart_count,
-                    RISCV_ACLINT_DEFAULT_MTIMECMP, RISCV_ACLINT_DEFAULT_MTIME,
-                    RISCV_ACLINT_DEFAULT_TIMEBASE_FREQ, true);
         }
 
         /* Per-socket interrupt controller */
@@ -300,41 +253,10 @@ static void virt_machine_init(MachineState *machine)
             virtio_irqchip = s->irqchip[i];
             pcie_irqchip = s->irqchip[i];
         }
-        if (i == 1) {
-            virtio_irqchip = s->irqchip[i];
-            pcie_irqchip = s->irqchip[i];
-        }
-        if (i == 2) {
-            pcie_irqchip = s->irqchip[i];
-        }
+        ...
     }
 
-    if (kvm_enabled() && virt_use_kvm_aia_aplic_imsic(s->aia_type)) {
-        kvm_riscv_aia_create(machine, IMSIC_MMIO_GROUP_MIN_SHIFT,
-                             VIRT_IRQCHIP_NUM_SOURCES, VIRT_IRQCHIP_NUM_MSIS,
-                             s->memmap[VIRT_APLIC_S].base,
-                             s->memmap[VIRT_IMSIC_S].base,
-                             s->aia_guests);
-    }
-
-    if (riscv_is_32bit(&s->soc[0])) {
-#if HOST_LONG_BITS == 64
-        /* limit RAM size in a 32-bit system */
-        if (machine->ram_size > 10 * GiB) {
-            machine->ram_size = 10 * GiB;
-            error_report("Limiting RAM size to 10 GiB");
-        }
-#endif
-        virt_high_pcie_memmap.base = VIRT32_HIGH_PCIE_MMIO_BASE;
-        virt_high_pcie_memmap.size = VIRT32_HIGH_PCIE_MMIO_SIZE;
-    } else {
-        virt_high_pcie_memmap.size = VIRT64_HIGH_PCIE_MMIO_SIZE;
-        virt_high_pcie_memmap.base = s->memmap[VIRT_DRAM].base +
-                                     machine->ram_size;
-        virt_high_pcie_memmap.base =
-            ROUND_UP(virt_high_pcie_memmap.base, virt_high_pcie_memmap.size);
-    }
-
+    
     /* register system main memory (actual RAM) */
     memory_region_add_subregion(system_memory, s->memmap[VIRT_DRAM].base,
                                 machine->ram);
@@ -345,68 +267,10 @@ static void virt_machine_init(MachineState *machine)
     memory_region_add_subregion(system_memory, s->memmap[VIRT_MROM].base,
                                 mask_rom);
 
-    /*
-     * Init fw_cfg. Must be done before riscv_load_fdt, otherwise the
-     * device tree cannot be altered and we get FDT_ERR_NOSPACE.
-     */
-    s->fw_cfg = create_fw_cfg(machine, s->memmap[VIRT_FW_CFG].base);
-    rom_set_fw(s->fw_cfg);
+    /* other subsystem initialization */
+    ...
 
-    /* SiFive Test MMIO device */
-    sifive_test_create(s->memmap[VIRT_TEST].base);
-
-    /* VirtIO MMIO devices */
-    for (i = 0; i < VIRTIO_COUNT; i++) {
-        sysbus_create_simple("virtio-mmio",
-            s->memmap[VIRT_VIRTIO].base + i * s->memmap[VIRT_VIRTIO].size,
-            qdev_get_gpio_in(virtio_irqchip, VIRTIO_IRQ + i));
-    }
-
-    gpex_pcie_init(system_memory, pcie_irqchip, s);
-
-    create_platform_bus(s, mmio_irqchip);
-
-    serial_mm_init(system_memory, s->memmap[VIRT_UART0].base,
-        0, qdev_get_gpio_in(mmio_irqchip, UART0_IRQ), 399193,
-        serial_hd(0), DEVICE_LITTLE_ENDIAN);
-
-    sysbus_create_simple("goldfish_rtc", s->memmap[VIRT_RTC].base,
-        qdev_get_gpio_in(mmio_irqchip, RTC_IRQ));
-
-    for (i = 0; i < ARRAY_SIZE(s->flash); i++) {
-        /* Map legacy -drive if=pflash to machine properties */
-        pflash_cfi01_legacy_drive(s->flash[i],
-                                  drive_get(IF_PFLASH, 0, i));
-    }
-    virt_flash_map(s, system_memory);
-
-    /* load/create device tree */
-    if (machine->dtb) {
-        machine->fdt = load_device_tree(machine->dtb, &s->fdt_size);
-        if (!machine->fdt) {
-            error_report("load_device_tree() failed");
-            exit(1);
-        }
-    } else {
-        create_fdt(s);
-    }
-
-    if (virt_is_iommu_sys_enabled(s)) {
-        DeviceState *iommu_sys = qdev_new(TYPE_RISCV_IOMMU_SYS);
-
-        object_property_set_uint(OBJECT(iommu_sys), "addr",
-                                 s->memmap[VIRT_IOMMU_SYS].base,
-                                 &error_fatal);
-        object_property_set_uint(OBJECT(iommu_sys), "base-irq",
-                                 IOMMU_SYS_IRQ,
-                                 &error_fatal);
-        object_property_set_link(OBJECT(iommu_sys), "irqchip",
-                                 OBJECT(mmio_irqchip),
-                                 &error_fatal);
-
-        sysbus_realize_and_unref(SYS_BUS_DEVICE(iommu_sys), &error_fatal);
-    }
-
+    /* machine done */
     s->machine_done.notify = virt_machine_done;
     qemu_add_machine_init_done_notifier(&s->machine_done);
 }
@@ -421,110 +285,24 @@ virt_machine_init()
   → create_fdt()         // 生成设备树(DTB)
 ```
 
-CPU socket 主要是可以按照簇（cluster）来创建多组 CPU 核心，然后按照地址空间初始化各种设备，最后为 virt 在内存中生产一个设备树，方便运行 linux kernel。
+CPU socket 主要是可以按照簇（cluster）来创建多组 CPU 核心，然后按照地址空间初始化各种设备，
+最后为 virt 在内存中生产一个设备树，方便运行 linux kernel。
 
 那么，是在什么位置加载的 OpenSBI 二进制程序呢？
 
 ## 加载客户机程序
 
-有一点可以明确，那么肯定是存储 OpenSBI 的设备模型先被创建并初始化好，才能加载客户机程序二进制数据进去，按照这个思路，我们可以找到如下代码（实际上 QEMU 是在整个 virt Machine 就绪以后，才开始加载客户机程序，它被安排在 machine_done 中实现）：
+有一点可以明确，那么肯定是存储 OpenSBI 的设备模型先被创建并初始化好，才能加载客户机程序二进制
+数据进去，按照这个思路，我们可以找到如下代码（实际上 QEMU 是在整个 virt Machine 就绪以后，
+才开始加载客户机程序，它被安排在 machine_done 中实现）：
 
 ```c
 static void virt_machine_done(Notifier *notifier, void *data)
 {
-    RISCVVirtState *s = container_of(notifier, RISCVVirtState,
-                                     machine_done);
-    MachineState *machine = MACHINE(s);
-    hwaddr start_addr = s->memmap[VIRT_DRAM].base;
-    target_ulong firmware_end_addr, kernel_start_addr;
-    const char *firmware_name = riscv_default_firmware_name(&s->soc[0]);
-    uint64_t fdt_load_addr;
-    uint64_t kernel_entry = 0;
-    BlockBackend *pflash_blk0;
-    RISCVBootInfo boot_info;
-
-    /*
-     * An user provided dtb must include everything, including
-     * dynamic sysbus devices. Our FDT needs to be finalized.
-     */
-    if (machine->dtb == NULL) {
-        finalize_fdt(s);
-    }
-
-    /*
-     * Only direct boot kernel is currently supported for KVM VM,
-     * so the "-bios" parameter is not supported when KVM is enabled.
-     */
-    if (kvm_enabled()) {
-        if (machine->firmware) {
-            if (strcmp(machine->firmware, "none")) {
-                error_report("Machine mode firmware is not supported in "
-                             "combination with KVM.");
-                exit(1);
-            }
-        } else {
-            machine->firmware = g_strdup("none");
-        }
-    }
-
+    ...
     firmware_end_addr = riscv_find_and_load_firmware(machine, firmware_name,
                                                      &start_addr, NULL);
-
-    pflash_blk0 = pflash_cfi01_get_blk(s->flash[0]);
-    if (pflash_blk0) {
-        if (machine->firmware && !strcmp(machine->firmware, "none") &&
-            !kvm_enabled()) {
-            /*
-             * Pflash was supplied but bios is none and not KVM guest,
-             * let's overwrite the address we jump to after reset to
-             * the base of the flash.
-             */
-            start_addr = s->memmap[VIRT_FLASH].base;
-        } else {
-            /*
-             * Pflash was supplied but either KVM guest or bios is not none.
-             * In this case, base of the flash would contain S-mode payload.
-             */
-            riscv_setup_firmware_boot(machine);
-            kernel_entry = s->memmap[VIRT_FLASH].base;
-        }
-    }
-
-    riscv_boot_info_init(&boot_info, &s->soc[0]);
-
-    if (machine->kernel_filename && !kernel_entry) {
-        kernel_start_addr = riscv_calc_kernel_start_addr(&boot_info,
-                                                         firmware_end_addr);
-        riscv_load_kernel(machine, &boot_info, kernel_start_addr,
-                          true, NULL);
-        kernel_entry = boot_info.image_low_addr;
-    }
-
-    fdt_load_addr = riscv_compute_fdt_addr(s->memmap[VIRT_DRAM].base,
-                                           s->memmap[VIRT_DRAM].size,
-                                           machine, &boot_info);
-    riscv_load_fdt(fdt_load_addr, machine->fdt);
-
-    /* load the reset vector */
-    riscv_setup_rom_reset_vec(machine, &s->soc[0], start_addr,
-                              s->memmap[VIRT_MROM].base,
-                              s->memmap[VIRT_MROM].size, kernel_entry,
-                              fdt_load_addr);
-
-    /*
-     * Only direct boot kernel is currently supported for KVM VM,
-     * So here setup kernel start address and fdt address.
-     * TODO:Support firmware loading and integrate to TCG start
-     */
-    if (kvm_enabled()) {
-        riscv_setup_direct_kernel(kernel_entry, fdt_load_addr);
-    }
-
-    virt_build_smbios(s);
-
-    if (virt_is_acpi_enabled(s)) {
-        virt_acpi_setup(s);
-    }
+    ...
 }
 
 target_ulong riscv_find_and_load_firmware(MachineState *machine,
@@ -621,18 +399,7 @@ riscv64-elf-gdb -ex "target remote localhost:1234"
 ```c
 static void riscv_cpu_reset_hold(Object *obj, ResetType type)
 {
-#ifndef CONFIG_USER_ONLY
-    uint8_t iprio;
-    int i, irq, rdzero;
-#endif
-    CPUState *cs = CPU(obj);
-    RISCVCPU *cpu = RISCV_CPU(cs);
-    RISCVCPUClass *mcc = RISCV_CPU_GET_CLASS(obj);
-    CPURISCVState *env = &cpu->env;
-
-    if (mcc->parent_phases.hold) {
-        mcc->parent_phases.hold(obj, type);
-    }
+    ...
 #ifndef CONFIG_USER_ONLY
     env->misa_mxl = mcc->def->misa_mxl_max;
     env->priv = PRV_M;
@@ -642,99 +409,15 @@ static void riscv_cpu_reset_hold(Object *obj, ResetType type)
          * The reset status of SXL/UXL is undefined, but mstatus is WARL
          * and we must ensure that the value after init is valid for read.
          */
-        env->mstatus = set_field(env->mstatus, MSTATUS64_SXL, env->misa_mxl);
-        env->mstatus = set_field(env->mstatus, MSTATUS64_UXL, env->misa_mxl);
-        if (riscv_has_ext(env, RVH)) {
-            env->vsstatus = set_field(env->vsstatus,
-                                      MSTATUS64_SXL, env->misa_mxl);
-            env->vsstatus = set_field(env->vsstatus,
-                                      MSTATUS64_UXL, env->misa_mxl);
-            env->mstatus_hs = set_field(env->mstatus_hs,
-                                        MSTATUS64_SXL, env->misa_mxl);
-            env->mstatus_hs = set_field(env->mstatus_hs,
-                                        MSTATUS64_UXL, env->misa_mxl);
-        }
-        if (riscv_cpu_cfg(env)->ext_smdbltrp) {
-            env->mstatus = set_field(env->mstatus, MSTATUS_MDT, 1);
-        }
+        ...
     }
     env->mcause = 0;
     env->miclaim = MIP_SGEIP;
-    env->pc = env->resetvec;
+    env->pc = env->resetvec;  /* resetvec is set in resetvec_cb */
     env->bins = 0;
     env->two_stage_lookup = false;
 
-    env->menvcfg = (cpu->cfg.ext_svpbmt ? MENVCFG_PBMTE : 0) |
-                   (!cpu->cfg.ext_svade && cpu->cfg.ext_svadu ?
-                    MENVCFG_ADUE : 0);
-    env->henvcfg = 0;
-
-    /* Initialized default priorities of local interrupts. */
-    for (i = 0; i < ARRAY_SIZE(env->miprio); i++) {
-        iprio = riscv_cpu_default_priority(i);
-        env->miprio[i] = (i == IRQ_M_EXT) ? 0 : iprio;
-        env->siprio[i] = (i == IRQ_S_EXT) ? 0 : iprio;
-        env->hviprio[i] = 0;
-    }
-    i = 0;
-    while (!riscv_cpu_hviprio_index2irq(i, &irq, &rdzero)) {
-        if (!rdzero) {
-            env->hviprio[irq] = env->miprio[irq];
-        }
-        i++;
-    }
-
-    /*
-     * Bits 10, 6, 2 and 12 of mideleg are read only 1 when the Hypervisor
-     * extension is enabled.
-     */
-    if (riscv_has_ext(env, RVH)) {
-        env->mideleg |= HS_MODE_INTERRUPTS;
-    }
-
-    /*
-     * Clear mseccfg and unlock all the PMP entries upon reset.
-     * This is allowed as per the priv and smepmp specifications
-     * and is needed to clear stale entries across reboots.
-     */
-    if (riscv_cpu_cfg(env)->ext_smepmp) {
-        env->mseccfg = 0;
-    }
-
-    pmp_unlock_entries(env);
-#else
-    env->priv = PRV_U;
-    env->senvcfg = 0;
-    env->menvcfg = 0;
-#endif
-
-    /* on reset elp is clear */
-    env->elp = false;
-    /* on reset ssp is set to 0 */
-    env->ssp = 0;
-
-    env->xl = riscv_cpu_mxl(env);
-    cs->exception_index = RISCV_EXCP_NONE;
-    env->load_res = -1;
-    set_default_nan_mode(1, &env->fp_status);
-    /* Default NaN value: sign bit clear, frac msb set */
-    set_float_default_nan_pattern(0b01000000, &env->fp_status);
-    env->vill = true;
-
-#ifndef CONFIG_USER_ONLY
-    if (cpu->cfg.debug) {
-        riscv_trigger_reset_hold(env);
-    }
-
-    if (cpu->cfg.ext_smrnmi) {
-        env->rnmip = 0;
-        env->mnstatus = set_field(env->mnstatus, MNSTATUS_NMIE, false);
-    }
-
-    if (kvm_enabled()) {
-        kvm_riscv_reset_vcpu(cpu);
-    }
-#endif
+    ...
 }
 
 ```
