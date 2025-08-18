@@ -1,6 +1,6 @@
 在计算机系统中，CPU 与外设的交互本质是 地址访问 和 中断通知：
 
-- 地址访问：CPU 通过 MMIO（内存映射 I/O ）或 PIO（端口 I/O ）读写设备寄存器
+- 地址访问：CPU 通过 MMIO（内存映射 I/O）或 PIO（端口 I/O）读写设备寄存器
 
 - 中断通知：外设通过中断控制器向 CPU 发送事件信号
 
@@ -37,7 +37,7 @@ typedef struct EduState {
     PCIDevice pdev;          // 继承 PCI 设备基类
     MemoryRegion mmio;        // MMIO 内存区域
     uint32_t fact;            
-    uint32_t status;          // 状态寄存器 (bit0=计算中, bit7=中断使能)
+    uint32_t status;          // 状态寄存器 (bit0=计算中，bit7=中断使能)
     QemuThread thread;        // 后台计算线程
     QemuMutex thr_mutex;      // 线程锁
     bool stopping;            // 线程停止标志
@@ -49,8 +49,8 @@ typedef struct EduState {
 在 pci_edu_realize() 中设置设备标识
 
 ```c
-pci_config_set_vendor_id(pci_conf, 0x1234);  // 厂商ID
-pci_config_set_device_id(pci_conf, 0x11e8);  // 设备ID
+pci_config_set_vendor_id(pci_conf, 0x1234);  // 厂商 ID
+pci_config_set_device_id(pci_conf, 0x11e8);  // 设备 ID
 pci_config_set_class(pci_conf, PCI_CLASS_OTHERS); // 设备类
 ```
 
