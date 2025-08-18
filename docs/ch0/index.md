@@ -33,7 +33,7 @@
 
 !!! example "开源相关"
 
-    [开源软件通识课程 (Introduction to Open Source Software)][7]
+    [QEMU 如何参与上游邮件列表的讨论][7]
 
 [1]: https://opencamp.ai/C/camp/2025/register?code=cMJBju7dp5cTR
 [2]: https://course.rs/about-book.html
@@ -41,5 +41,5 @@
 [4]: https://www.bilibili.com/video/BV1PmSEYtETA/
 [5]: https://www.bilibili.com/video/BV11Cq6YxE8U
 [6]: https://ima.qq.com/wiki/?shareId=70cb647d4024402dccc94b947c210de2e5c65c68559c166da7ee1a3d9a714e5e
-[7]: https://oss.hust.openatom.club/
+[7]: https://oss.hust.openatom.club/ch3/sec4/1-qemu-send-email/
 [8]: https://www.qemu.org/docs/master/
