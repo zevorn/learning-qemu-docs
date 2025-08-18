@@ -35,7 +35,7 @@
 
     [开源软件通识课程 (Introduction to Open Source Software)][7]
 
-[1]: https://opencamp.ai/C
+[1]: https://opencamp.ai/C/camp/2025/register?code=cMJBju7dp5cTR
 [2]: https://course.rs/about-book.html
 [3]: https://www.bilibili.com/video/BV12Z4y1c74c/?vd_source=32a59d44033b6a74e27f55b17e7b394d&spm_id_from=333.788.videopod.episodes&p=5
 [4]: https://www.bilibili.com/video/BV1PmSEYtETA/
