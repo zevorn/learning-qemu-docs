@@ -4,6 +4,7 @@
     [GDB 调试 QEMU 上运行的 Linux 内核][1]
 
 QEMU 支持远程调试 user 模式和 system 模式下的客户机程序。QEMU 内置了一个 gdbserver 可以对客户机处理器进行控制。
+
 用户可以通过任何 gdb client 连接。
 
 下面给出具体操作命令：
