@@ -48,7 +48,8 @@ nav:
     - e. QEMU 硬件建模:
         - C 语言建模:
           - Machine 建模: ch2/sec4/c-model/machine-model.md
-          - 外设建模: ch2/sec4/c-model/peripheral-model.md
+          - 外设建模（串口）: ch2/sec4/c-model/peripheral-model-uart.md
+          - 外设建模（edu）: ch2/sec4/c-model/peripheral-model-edu.md
           - 中断建模: ch2/sec4/c-model/intr-model.md
         - Rust 建模:
           - QOM 实现: ch2/sec4/rust-model/rust-qom.md
