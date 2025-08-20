@@ -28,7 +28,7 @@ make check-qtest
 
 2. 使用 glib 和 libqtest/libqos API 编写测试代码。也可以参考现有的测试和库头文件。
 
-3. 在 tests/qtest/meson.build 中注册新测试。将测试可执行文件名称添加到适当 的qtests_* 变量中。每个架构对应一个变量，此外还有 qtests_generic 用于可在所有架构上运行的测试。例如：
+3. 在 tests/qtest/meson.build 中注册新测试。将测试可执行文件名称添加到适当 的 qtests_* 变量中。每个架构对应一个变量，此外还有 qtests_generic 用于可在所有架构上运行的测试。例如：
 
     ```
     qtests_generic = [
@@ -48,7 +48,7 @@ make check-qtest
     }
     ```
 
-调试 QTest 失败比调试单元测试稍微困难一些，因为这些测试会在环境变量中查找QEMU程序名称，例如 QTEST_QEMU_BINARY 和 QTEST_QEMU_IMG，而且也因为不容易将 gdb 附加到从测试中启动的QEMU进程上。但是，手动调用测试并在测试上使用 gdb 仍然很简单：从输出中找出实际的命令:
+调试 QTest 失败比调试单元测试稍微困难一些，因为这些测试会在环境变量中查找 QEMU 程序名称，例如 QTEST_QEMU_BINARY 和 QTEST_QEMU_IMG，而且也因为不容易将 gdb 附加到从测试中启动的 QEMU 进程上。但是，手动调用测试并在测试上使用 gdb 仍然很简单：从输出中找出实际的命令：
 
 ```
 make check-qtest V=1
