@@ -57,3 +57,9 @@ $QEMU $QEMU_ARGS -d in_asm,op,out_asm -D tcg.log
 ```bash
 $QEMU $QEMU_ARGS -d exec,cpu,int -D cpu.log
 ```
+
+如果你想获取 CPU 精准执行的指令流，需要设置每个 TB 只包含一条指令，可以使用下面的命令：
+
+```bash
+$QEMU $QEMU_ARGS --accel tcg,one-insn-per-tb=on -d exec,cpu,int -D cpu.log
+```
