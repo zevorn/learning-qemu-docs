@@ -53,8 +53,6 @@ nav:
           - 中断建模: ch2/sec4/c-model/intr-model.md
         - Rust 建模:
           - Rust in QEMU: ch2/sec4/rust-model/rust-in-qemu.md
-          - QOM 实现: ch2/sec4/rust-model/rust-qom.md
-          - QDev 实现: ch2/sec4/rust-model/rust-qdev.md
           - 外设建模: ch2/sec4/rust-model/peripheral-model.md
     - f. QEMU 调试:
       - 远程调试: ch2/sec5/gdbstub.md
