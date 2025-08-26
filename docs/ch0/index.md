@@ -23,6 +23,8 @@
 
     [QEMU : 官方文档（也可在源码仓库的 docs/ 中阅读）][8]
 
+    [QEMU : 安全编码实践][9]
+
 ### 虚拟化导学资料
 
 !!! info "虚拟化相关"
@@ -43,3 +45,4 @@
 [6]: https://ima.qq.com/wiki/?shareId=70cb647d4024402dccc94b947c210de2e5c65c68559c166da7ee1a3d9a714e5e
 [7]: https://oss.hust.openatom.club/ch3/sec4/1-qemu-send-email/
 [8]: https://www.qemu.org/docs/master/
+[9]: https://www.qemu.org/docs/master/devel/secure-coding-practices.html
