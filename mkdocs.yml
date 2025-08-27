@@ -32,8 +32,8 @@ nav:
     - b. 虚拟技术发展历史: ch1/sec1/vm-history.md
     - c. Hypervisor 技术介绍: ch1/sec2/hypervisor.md
     - d. QEMU 基本知识介绍:
-      - QOM: ch1/sec3/qemu-qom.md
-      - MemoryRegion: ch1/sec3/qemu-memory-region.md
+      - 面向对象建模: ch1/sec3/qemu-qom.md
+      - 地址空间抽象: ch1/sec3/qemu-memory-region.md
   - 3. 专业阶段:
     - a. 本章导览: ch2/index.md
     - b. QEMU 初始化: ch2/sec1/qemu-init.md
