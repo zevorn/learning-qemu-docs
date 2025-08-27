@@ -55,7 +55,7 @@ jobs:
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
           git add -A
-          git commit -m "Auto fix formatting by autocorrect [ci skip]"
+          git commit -m "ci: auto fix formatting by autocorrect [ci skip]"
 
       - name: Push changes
         if: steps.check_changes.outputs.has_changes == 'true'
