@@ -29,7 +29,7 @@ nav:
   - 1. 导学阶段: ch0/index.md
   - 2. 基础阶段:
     - a. 本章导览: ch1/index.md
-    - b. 虚拟机发展历史: ch1/sec1/vm-history.md
+    - b. 虚拟技术发展历史: ch1/sec1/vm-history.md
     - c. Hypervisor 技术介绍: ch1/sec2/hypervisor.md
     - d. QEMU 基本知识介绍:
       - QOM: ch1/sec3/qemu-qom.md
