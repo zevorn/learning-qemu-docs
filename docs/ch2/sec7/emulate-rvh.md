@@ -1,6 +1,6 @@
 目前支持 RISCV 虚拟化扩展的硬件不是很多，但我们可以使用 QEMU 来模拟这个功能。
 
-基本思路是采用 QEMU 软件模拟一个 RISCV SoC（virt Machine），在上面运行 Ubuntu 发行版，然后在 Ubuntu 上使用虚拟化运行 Linux 。
+基本思路是采用 QEMU 软件模拟一个 RISCV SoC（virt Machine），在上面运行 Ubuntu 发行版，然后在 Ubuntu 上使用虚拟化运行 Linux。
 
 ## 基本环境准备
 
@@ -47,11 +47,11 @@ qemu-system-riscv64 \
 
 - `-machine virt` 这里我们配置了 virt Machine 来运行客户机操作系统（virt 默认开启了对 H 扩展的支持）。
 
-- `-nographic` 不需要图形界面，通过命令行终端打印客户机串口输出，并允许人机交互(先按下 ctrl + a, 再按下 c 进入)。
+- `-nographic` 不需要图形界面，通过命令行终端打印客户机串口输出，并允许人机交互 (先按下 ctrl + a, 再按下 c 进入)。
 
-- `-m 4096 -smp 32` 分配 4G 内存，32个核心（u-boot 最大支持数量）。
+- `-m 4096 -smp 32` 分配 4G 内存，32 个核心（u-boot 最大支持数量）。
 
-- `-kernel /.../uboot.elf` 我们通过 U-Boot 来引导 kernel 。
+- `-kernel /.../uboot.elf` 我们通过 U-Boot 来引导 kernel。
 
 - `-device virtio-net-device,netdev=eth0` 高性能半虚拟化网卡（基于 VirtIO 标准），绑定到名为 eth0 的后端网络设备。
 
