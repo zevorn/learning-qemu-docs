@@ -61,7 +61,9 @@ nav:
     - g. QEMU 测试:
         - Qtest: ch2/sec6/qtest.md
         - TCG 测试: ch2/sec6/test-tcg.md
-    - h. QEMU 虚拟化实践: ch2/sec7/qemu-virtual.md
+    - h. QEMU 虚拟化实践: 
+        - 创建和管理虚拟机: ch2/sec7/qemu-virtual.md
+        - 模拟 RISCV 虚拟化: ch2/sec7/emulate-rvh.md
   - 4. 项目阶段:
     - a. 本章导览: ch3/index.md
     - b. QEMU 建模 K230: ch3/sec1/k230-model.md
