@@ -69,4 +69,5 @@ nav:
     - b. QEMU 建模 K230: ch3/sec1/k230-model.md
     - c. QEMU 测评 OS: ch3/sec2/os-test.md
   - 5. 课程附录:
-    - a. G233 Datasheet: ch4/g233-board-datasheet.md
+    - a. G233 User Manual: ch4/g233-user-manual.md
+    - b. G233 Datasheet: ch4/g233-board-datasheet.md
