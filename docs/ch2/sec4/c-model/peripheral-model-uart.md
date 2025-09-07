@@ -20,7 +20,7 @@ L011 串口在 QEMU 中的建模完整展示了硬件外设模拟的核心流程
  - 实现类初始化 (class_init) 和实例初始化 (instance_init)
  - 注册到全局类型系统
 
- ```c
+```c
  // hw/char/pl011.c
 static const TypeInfo pl011_type_info = {
     .name = TYPE_PL011,
@@ -34,7 +34,7 @@ static void pl011_register_types(void) {
     type_register_static(&pl011_type_info);
 }
 type_init(pl011_register_types);
- ```
+```
 
 
 ## 设备状态结构设计
