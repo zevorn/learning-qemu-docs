@@ -1,6 +1,6 @@
 本文档是参与专业阶段测评的用户手册。
 
-专业阶段的测评围绕着 G233 虚拟开发板展开，你需要按照 G233 Board Datasheet 的硬件参数，完成下面实验给出任务，从而帮助你更好的掌握 QEMU 建模，理解 QEMU 模拟器的工作原理。
+专业阶段的测评围绕着 G233 虚拟开发板展开，你需要按照 [G233 Board Datasheet][5] 的硬件参数，完成下面实验给出任务，从而帮助你更好的掌握 QEMU 建模，理解 QEMU 模拟器的工作原理。
 
 !!! note "温馨提示"
 
@@ -16,16 +16,27 @@
 
     如果你想尝试使用 Rust 开发，请自行安装 Rust 工具链，version >= 1.85
 
-第二步，需要 fork  QEMU 源码到你的 Github 账户下面，仓库地址：[learning-qemu-2025][3]
+第二步，点击[这里][3]，自动 fork 作业仓库到 GTOC 组织下面，该仓库会为你开通代码上传权限，便于上传你的作业。
 
-!!! note
-
-    fork 时注意选择 fork 所有分支, 另外推荐使用 SSH 访问远程仓库。
-
-第三步需要 clone 仓库的指定分支到本地：
+第三步，需要 clone 刚刚 fork 好的仓库的到本地：
 
 ```bash
-git clone -b learning-qemu-2025 git@github.com:<your-name>/qemu.git
+git clone git@github.com:gevico/learning-qemu-2025-<你的 github 用户名>.git
+
+# 比如 github 用户名是 zevorn，那么命令如下：
+# git clone git@github.com:gevico/learning-qemu-2025-zevorn.git
+```
+
+第四步，添加上游远程仓库，用于同步上游的代码变更：
+
+```bash
+git remote add upstream git@github.com:gevico/gevico-classroom-learning-qemu-2025-learning-qemu.git
+```
+
+同步上游代码变更的常用命令：
+
+```bash
+git pull upstream main --rebase
 ```
 
 最后一步，配置编译选项：
@@ -52,7 +63,7 @@ cd qemu
 
 ## 测评验收
 
-所有实验的测题源码，均放在仓库根目录路径： `tests/gevico/tcg/` 。一共有五个测题。
+所有实验的测题源码，均放在仓库根目录路径： `tests/gevico/tcg/` 。
 
 本地运行测题的方式：
 
@@ -65,11 +76,12 @@ make check-gevico-tcg
 ```bash
   BUILD   riscv64-softmmu guest-tests
   RUN     riscv64-softmmu guest-tests
-  TEST      1/5   test-board-g233 on riscv64
-  TEST      2/5   test-insn-dma on riscv64
-  TEST      3/5   test-insn-sort on riscv64
-  TEST      4/5   test-insn-crush on riscv64
-  TEST      5/5   test-insn-expand on riscv64
+  TEST      1/10   test-board-g233 on riscv64
+  TEST      2/10   test-insn-dma on riscv64
+  TEST      3/10   test-insn-sort on riscv64
+  TEST      4/10   test-insn-crush on riscv64
+  TEST      5/10   test-insn-expand on riscv64
+  ...
 ```
 
 如果你想运行某个测例，比如 `test-board-g233`，可以使用如下命令：
@@ -96,13 +108,11 @@ make -C build/tests/gevico/tcg/riscv64-softmmu gdbstub-board-g233
 
     你需要熟读 G233 Board Datasheet 和测题的源码，来理解每个实验的测试意图，这会极大地方便你调试，提高开发效率。
 
-评分显示到训练营专业阶段排行榜，需要通过 opencamp 测评仓库实现。
-
-你需要将你的远程 qemu 仓库和 learning-qemu-2025 分支添加为 opencamp 测评仓库的 submodule 来实现。
-
-具体操作详见 opencamp 测评仓库 README。
+评分将显示到训练营的[专业阶段排行榜][4]。
 
 
 [1]: https://qemu.readthedocs.io/en/v10.0.3/devel/build-environment.html
 [2]: https://github.com/riscv-collab/riscv-gnu-toolchain/releases/
-[3]: https://github.com/gevico/qemu
+[3]: https://classroom.github.com/a/HXuCy8g7
+[4]: https://opencamp.cn/qemu/camp/2025/stage/3?tab=rank
+[5]: https://gevico.github.io/learning-qemu-docs/ch4/g233-board-datasheet/
