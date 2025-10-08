@@ -4,7 +4,7 @@
 
 !!! note "温馨提示"
 
-    关于硬件建模的部分，你可以尝试使用 Rust 实现，如果想要挑战一下自我，也可以尝试用 Rust 模拟客户机指令。
+    关于硬件建模部分，你可以尝试用 Rust 来实现（QEMU 有基本框架）；若想进一步挑战自我，也可以尝试用 Rust 模拟客户机指令（需要自己从零实现）。
 
 ## 环境搭建
 
@@ -143,7 +143,7 @@ make -C build/tests/gevico/tcg/riscv64-softmmu gdbstub-board-g233
 
     你需要熟读 G233 Board Datasheet 和测题的源码，来理解每个实验的测试意图，这会极大地方便你调试，提高开发效率。
 
-评分将显示到训练营的[专业阶段排行榜][4]。
+每道测题 10 分，一共 10 道测题，共计 100 分，评分将显示到训练营的[专业阶段排行榜][4]。
 
 
 [1]: https://qemu.readthedocs.io/en/v10.0.3/devel/build-environment.html
