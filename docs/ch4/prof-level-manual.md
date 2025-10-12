@@ -95,10 +95,26 @@ cd qemu
   ...
 ```
 
+## 提交代码
+
+所有实验的测题源码，均放在仓库根目录路径： `tests/gevico/tcg/riscv64/` 。
+
+你需要熟读每个测题源码，理解每个测题的测试意图，并实现对应的 QEMU 建模功能（需要修改 QEMU 本体源码，非测题源码），文末会给出具体实验的介绍，辅助你阅读测题源码。
+
+每次实验完成后，需要将你的代码提交到你的 fork 仓库中。
+
+```bash
+git add .
+git commit -m "feat: subject..."
+git push origin main
+```
+
+!!! note
+
+    请确保你的代码符合仓库的代码规范，包括代码格式、注释等。
 
 ## 测评验收
 
-所有实验的测题源码，均放在仓库根目录路径： `tests/gevico/tcg/` 。
 
 本地运行测题的方式：
 
@@ -145,6 +161,83 @@ make -C build/tests/gevico/tcg/riscv64-softmmu gdbstub-board-g233
 
 每道测题 10 分，一共 10 道测题，共计 100 分，评分将显示到训练营的[专业阶段排行榜][4]。
 
+## 实验介绍
+
+为了方便设计测题，我们设计了一个虚拟板卡 G233，并且编写了 [G233 Board Datasheet][5]，用于描述 G233 板卡的硬件规格和功能。
+
+该阶段涉及的所有实验的硬件参数，全部记录在 [G233 Board Datasheet][5] 中。熟读手册可以帮你更好的理解每个实验的测试意图。
+
+所有实验的测题，均在 `tests/gevico/tcg/riscv64/` 目录下，以 `test-` 开头的 `.c` 文件。
+
+### 实验一 test-board-g233
+
+源码路径： `tests/gevico/tcg/riscv64/test-board-g233.c`。
+
+该实验用于验证 G233 Board 是否正常工作。你需要在 QEMU 中模拟 G233 Board。
+
+基本代码已经存放在 `hw/riscv/g233.c` 中，需要你进一步补全它。
+
+### 实验二 test-insn-dma
+
+源码路径： `tests/gevico/tcg/riscv64/test-insn-dma.c`。
+
+该实验用于验证 G233 Board 的 DMA 指令功能是否正常工作。你需要在 QEMU 中实现这条指令。
+
+这条指令的详细描述在 [G233 Board Datasheet][5] 中。
+
+### 实验三 test-insn-sort
+
+源码路径： `tests/gevico/tcg/riscv64/test-insn-sort.c`。
+
+该实验用于验证 G233 Board 的 sort 指令功能是否正常工作。你需要在 QEMU 中实现这条指令。
+
+这条指令的详细描述在 [G233 Board Datasheet][5] 中。
+
+### 实验四 test-insn-crush
+
+源码路径： `tests/gevico/tcg/riscv64/test-insn-crush.c`。
+
+该实验用于验证 G233 Board 的 crush 指令功能是否正常工作。你需要在 QEMU 中实现这条指令。
+
+这条指令的详细描述在 [G233 Board Datasheet][5] 中。
+
+### 实验五 test-insn-expand
+
+源码路径： `tests/gevico/tcg/riscv64/test-insn-expand.c`。
+
+该实验用于验证 G233 Board 的 expand 指令功能是否正常工作。你需要在 QEMU 中实现这条指令。
+
+这条指令的详细描述在 [G233 Board Datasheet][5] 中。
+
+### 实验六 test-spi-jedec
+
+源码路径： `tests/gevico/tcg/riscv64/test-spi-jedec.c`。
+
+该实验用于验证 G233 Board 的 SPI-JEDEC 功能是否正常工作。你需要在 QEMU 中实现这个外设。
+
+这个外设的详细描述在 [G233 Board Datasheet][5] 中。
+
+### 实验七 test-flash-read
+
+源码路径： `tests/gevico/tcg/riscv64/test-flash-read.c`。
+
+该实验用于验证 G233 Board 的 flash-read 功能是否正常工作。你需要在 QEMU 中实现这个外设。
+
+这个外设的详细描述在 [G233 Board Datasheet][5] 中。
+
+### 实验八 test-flash-read-int
+
+源码路径： `tests/gevico/tcg/riscv64/test-flash-read-interrupt.c`。
+
+该实验用于验证 G233 Board 的中断功能是否正常工作。你需要在 QEMU 中实现这个外设的中断功能。
+
+这个中断对应的外设的详细描述在 [G233 Board Datasheet][5] 中。
+
+### 实验九 TODO
+[待更新]
+
+### 实验十 TODO
+[待更新]
 
 [1]: https://qemu.readthedocs.io/en/v10.0.3/devel/build-environment.html
 [2]: https://github.com/riscv-collab/riscv-gnu-toolchain/releases/
