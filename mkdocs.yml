@@ -55,6 +55,7 @@ nav:
           - Rust in QEMU: ch2/sec4/rust-model/rust-in-qemu.md
           - 外设建模: ch2/sec4/rust-model/peripheral-model.md
     - f. QEMU 调试:
+      - 源码调试: ch2/sec5/debug-qemu.md
       - 远程调试: ch2/sec5/gdbstub.md
       - 日志调试: ch2/sec5/qemu-log.md
       - 追踪事件: ch2/sec5/trace-event.md
