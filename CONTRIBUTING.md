@@ -65,18 +65,7 @@ git pull upstream main
 ## 这是一个文档的章节名称
 ```
 
-2. 主要作者署名（可选）
-
-如果您编写了某个章节的主要内容，请在章节的开头添加主要作者提示框。
-
-格式如下，不同作者名字之间用中文全角顿号（「、」）分隔：
-
-```
-!!! note "主要作者"
-
-    [@example][github.com/example]、[@new-contributor][github.com/new-contributor]
-```
-3. 为图片添加配字
+2. 为图片添加配字
 
 所有图片都应在图片下方添加配字说明，并在配字的下一行写上 {: .caption } 以应用特定样式。
 
@@ -91,7 +80,7 @@ git pull upstream main
 
 请确保配字简洁明了，并对图片内容进行必要的解释。图号建议按章节顺序编号（如图 1.1, 图 1.2, 图 2.1 等）或按文档顺序编号。
 
-4. 使用提示框 (Admonition)
+3. 使用提示框 (Admonition)
 
 提示框（Admonition）是 mkdocs-material 主题的特色功能，能够有效突出显示特定信息。建议根据内容性质选用以下类型的提示框：
 
