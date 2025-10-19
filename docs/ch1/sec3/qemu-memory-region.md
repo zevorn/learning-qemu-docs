@@ -349,7 +349,7 @@ memory_region_update_container_subregions() 的过程很简单，最终执行的
                         |subregions              |
                         |    QTAILQ_HEAD()       |
                         +------------------------+
-                                        |
+                                    |
                 +-------------------+---------------------+
                 |                                         |
                 |                                         |
