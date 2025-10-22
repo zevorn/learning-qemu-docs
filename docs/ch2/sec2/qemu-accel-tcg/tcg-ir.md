@@ -118,7 +118,7 @@ Logic operations on two registers:
 // Logical_conjunction: Logical AND two registers
 tcg_gen_and_tl(ret, arg1, arg2);
 
-// ret = arg1 arg2
+// ret = arg1 | arg2
 // Logical_disjunction: Logical OR two registers
 tcg_gen_or_tl(ret, arg1, arg2);
 
